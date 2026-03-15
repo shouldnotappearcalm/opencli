@@ -5,6 +5,7 @@
 
 import { spawn, execSync, type ChildProcess } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import * as http from 'node:http';
 import * as net from 'node:net';
 import { fileURLToPath } from 'node:url';
 import * as fs from 'node:fs';
@@ -31,6 +32,33 @@ function isPortReachable(port: number, host = '127.0.0.1', timeoutMs = 800): Pro
     sock.on('connect', () => { sock.destroy(); resolve(true); });
     sock.on('error', () => resolve(false));
     sock.on('timeout', () => { sock.destroy(); resolve(false); });
+  });
+}
+
+/**
+ * Verify the CDP HTTP JSON API is functional.
+ * Chrome's chrome://inspect#remote-debugging mode writes DevToolsActivePort
+ * but doesn't expose the full CDP HTTP API (/json/version), which means
+ * Playwright's connectOverCDP won't work properly (init succeeds but
+ * all tool calls hang silently).
+ */
+export function isCdpApiAvailable(port: number, host = '127.0.0.1', timeoutMs = 2000): Promise<boolean> {
+  return new Promise(resolve => {
+    const req = http.get(`http://${host}:${port}/json/version`, { timeout: timeoutMs }, (res) => {
+      let body = '';
+      res.on('data', (chunk: Buffer) => { body += chunk.toString(); });
+      res.on('end', () => {
+        try {
+          const data = JSON.parse(body);
+          // A valid CDP endpoint returns { Browser, ... } with a webSocketDebuggerUrl
+          resolve(!!data && typeof data === 'object' && !!data.Browser);
+        } catch {
+          resolve(false);
+        }
+      });
+    });
+    req.on('error', () => resolve(false));
+    req.on('timeout', () => { req.destroy(); resolve(false); });
   });
 }
 
@@ -67,7 +95,12 @@ export async function discoverChromeEndpoint(): Promise<string | null> {
           const endpoint = `ws://127.0.0.1:${port}${browserPath}`;
           // Verify the port is actually reachable (Chrome may have closed, leaving a stale file)
           if (await isPortReachable(port)) {
-            return endpoint;
+            // Verify CDP HTTP API is functional — chrome://inspect#remote-debugging
+            // writes DevToolsActivePort but doesn't expose the full CDP API,
+            // causing Playwright connectOverCDP to hang on all tool calls.
+            if (await isCdpApiAvailable(port)) {
+              return endpoint;
+            }
           }
         }
       }
@@ -82,11 +115,14 @@ const PKG_VERSION = (() => { try { return JSON.parse(fs.readFileSync(path.resolv
 
 const CONNECT_TIMEOUT = parseInt(process.env.OPENCLI_BROWSER_CONNECT_TIMEOUT ?? '30', 10);
 const STDERR_BUFFER_LIMIT = 16 * 1024;
+const INITIAL_TABS_TIMEOUT_MS = 1500;
+const CDP_READINESS_PROBE_TIMEOUT_MS = 5000;
 const TAB_CLEANUP_TIMEOUT_MS = 2000;
 let _cachedMcpServerPath: string | null | undefined;
 
 type ConnectFailureKind = 'missing-token' | 'extension-timeout' | 'extension-not-installed' | 'cdp-timeout' | 'mcp-init' | 'process-exit' | 'unknown';
 type PlaywrightMCPState = 'idle' | 'connecting' | 'connected' | 'closing' | 'closed';
+type PlaywrightMCPMode = 'extension' | 'cdp' | null;
 
 type ConnectFailureInput = {
   kind: ConnectFailureKind;
@@ -425,6 +461,7 @@ export class PlaywrightMCP {
   private _initialTabIdentities: string[] = [];
   private _closingPromise: Promise<void> | null = null;
   private _state: PlaywrightMCPState = 'idle';
+  private _mode: PlaywrightMCPMode = null;
 
   private _page: Page | null = null;
 
@@ -459,6 +496,7 @@ export class PlaywrightMCP {
     this._page = null;
     this._proc = null;
     this._buffer = '';
+    this._mode = null;
     this._initialTabIdentities = [];
     this._rejectPendingRequests(new Error('Playwright MCP connect failed'));
     PlaywrightMCP._activeInsts.delete(this);
@@ -500,6 +538,7 @@ export class PlaywrightMCP {
       const isDebug = process.env.DEBUG?.includes('opencli:mcp');
       const debugLog = (msg: string) => isDebug && console.error(`[opencli:mcp] ${msg}`);
       const mode: 'extension' | 'cdp' = cdpEndpoint ? 'cdp' : 'extension';
+      this._mode = mode;
       const extensionToken = process.env.PLAYWRIGHT_MCP_EXTENSION_TOKEN;
       const tokenFingerprint = getTokenFingerprint(extensionToken);
       let stderrBuffer = '';
@@ -636,9 +675,31 @@ export class PlaywrightMCP {
         debugLog(`SEND: ${initializedMsg.trim()}`);
         this._proc?.stdin?.write(initializedMsg);
 
-        // Get initial tab count for cleanup (with timeout — CDP mode may hang on browser_tabs)
+        if (mode === 'cdp') {
+          // CDP readiness probe: verify tool calls actually work.
+          // Some CDP endpoints (e.g. chrome://inspect mode) accept WebSocket
+          // connections and respond to MCP init but silently drop tool calls.
+          debugLog('CDP readiness probe (tabs)...');
+          withTimeout(page.tabs(), CDP_READINESS_PROBE_TIMEOUT_MS, 'CDP readiness probe timed out')
+            .then(() => {
+              debugLog('CDP readiness probe succeeded');
+              settleSuccess(page);
+            })
+            .catch((err) => {
+              debugLog(`CDP readiness probe failed: ${err.message}`);
+              settleError('cdp-timeout', {
+                rawMessage: 'CDP endpoint connected but tool calls are unresponsive. ' +
+                  'This usually means Chrome was opened with chrome://inspect#remote-debugging ' +
+                  'which is not fully compatible. Launch Chrome with --remote-debugging-port=9222 instead, ' +
+                  'or use the Playwright MCP Bridge extension (default mode).',
+              });
+            });
+          return;
+        }
+
+        // Extension mode uses tabs as a readiness probe and for tab cleanup bookkeeping.
         debugLog('Fetching initial tabs count...');
-        withTimeout(page.tabs(), 5000, 'Timed out fetching initial tabs').then((tabs: any) => {
+        withTimeout(page.tabs(), INITIAL_TABS_TIMEOUT_MS, 'Timed out fetching initial tabs').then((tabs: any) => {
           debugLog(`Tabs response: ${typeof tabs === 'string' ? tabs : JSON.stringify(tabs)}`);
           this._initialTabIdentities = extractTabIdentities(tabs);
           settleSuccess(page);
@@ -659,8 +720,8 @@ export class PlaywrightMCP {
     this._state = 'closing';
     this._closingPromise = (async () => {
       try {
-        // Close tabs opened during this session (site tabs + extension tabs)
-        if (this._page && this._proc && !this._proc.killed) {
+        // Extension mode opens bridge/session tabs that we can clean up best-effort.
+        if (this._mode === 'extension' && this._page && this._proc && !this._proc.killed) {
           try {
             const tabs = await withTimeout(this._page.tabs(), TAB_CLEANUP_TIMEOUT_MS, 'Timed out fetching tabs during cleanup');
             const tabEntries = extractTabEntries(tabs);
@@ -690,6 +751,7 @@ export class PlaywrightMCP {
         this._rejectPendingRequests(new Error('Playwright MCP session closed'));
         this._page = null;
         this._proc = null;
+        this._mode = null;
         this._state = 'closed';
         PlaywrightMCP._activeInsts.delete(this);
       }
@@ -782,6 +844,7 @@ export const __test__ = {
   diffTabIndexes,
   appendLimited,
   withTimeout,
+  isCdpApiAvailable,
 };
 
 function findMcpServerPath(): string | null {
