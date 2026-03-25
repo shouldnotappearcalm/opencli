@@ -5,6 +5,11 @@ description: Route requests to OpenCLI command docs for supported platforms: ant
 
 Use this skill as a platform command router.
 
+Prerequisites:
+- `opencli` command is installed and available in PATH.
+- Chrome Browser Bridge extension is installed manually and enabled.
+- Run `opencli doctor` before first use.
+
 1. Detect target platform from user request.
 2. Load `references/commands/<platform>.md`.
 3. Select the command and fill required args.
@@ -13,3 +18,6 @@ Use this skill as a platform command router.
 
 All command docs live in:
 - `references/commands/*.md`
+
+Setup and manual extension install guide:
+- `README.md`
