@@ -95,6 +95,25 @@ opencli list  # 可以在任何地方使用了！
 npm install -g @jackwener/opencli@latest
 ```
 
+## 安装 OpenCLI Skill（opencli-platform-router）
+
+如果你希望 Agent 直接使用仓库内的命令文档型 Skill，请使用：
+
+```bash
+# Skill 目录
+skills/opencli-platform-router/
+```
+
+推荐接入方式：
+
+1. 读取 `skills/opencli-platform-router/SKILL.md`
+2. 按平台读取 `skills/opencli-platform-router/references/commands/*.md`
+3. 首次执行浏览器命令前先运行 `opencli doctor`
+
+该 Skill 依赖：
+- 已安装 `opencli` 命令
+- 已手动安装 Chrome Browser Bridge 扩展（`chrome://extensions`）
+
 ## 内置命令
 
 运行 `opencli list` 查看完整注册表。

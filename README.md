@@ -93,6 +93,25 @@ opencli list  # Now you can use it anywhere!
 npm install -g @jackwener/opencli@latest
 ```
 
+## Install the OpenCLI Skill (opencli-platform-router)
+
+If you want agents to consume platform command docs directly from this repo, use:
+
+```bash
+# Skill location in this repo
+skills/opencli-platform-router/
+```
+
+Recommended setup for agents:
+
+1. Load `skills/opencli-platform-router/SKILL.md`
+2. Load platform docs from `skills/opencli-platform-router/references/commands/*.md`
+3. Run `opencli doctor` before first browser command
+
+This skill depends on:
+- installed `opencli` binary
+- manually installed Chrome Browser Bridge extension (`chrome://extensions`)
+
 ## Built-in Commands
 
 Run `opencli list` for the live registry.
