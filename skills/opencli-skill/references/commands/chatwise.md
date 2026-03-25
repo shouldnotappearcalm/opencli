@@ -6,13 +6,13 @@
 - 用途：Send a prompt and wait for the AI response (send + wait + read)
 - 参数：
   - `text`（必填）：Prompt to send
-  - `timeout`（可选）：默认值 30)'；Max seconds to wait (default: 30)
+  - `timeout`（可选）：默认值 30；Max seconds to wait (default: 30)
 - 用法：`opencli chatwise ask [options] -f json`
 
 ### export
 - 用途：Export the current ChatWise conversation to a Markdown file
 - 参数：
-  - `output`（可选）：默认值 /tmp/chatwise-export.md)'；Output file (default: /tmp/chatwise-export.md)
+  - `output`（可选）：默认值 /tmp/chatwise-export.md；Output file (default: /tmp/chatwise-export.md)
 - 用法：`opencli chatwise export [options] -f json`
 
 ### history
@@ -39,7 +39,7 @@
 ### screenshot
 - 用途：Capture a snapshot of the current ChatWise window (DOM + Accessibility tree)
 - 参数：
-  - `output`（可选）：默认值 /tmp/chatwise-snapshot)'；Output file path (default: /tmp/chatwise-snapshot)
+  - `output`（可选）：默认值 /tmp/chatwise-snapshot；Output file path (default: /tmp/chatwise-snapshot)
 - 用法：`opencli chatwise screenshot [options] -f json`
 
 ### send

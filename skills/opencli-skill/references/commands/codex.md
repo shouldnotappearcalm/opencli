@@ -6,7 +6,7 @@
 - 用途：Send a prompt and wait for the AI response (send + wait + read)
 - 参数：
   - `text`（必填）：Prompt to send
-  - `timeout`（可选）：默认值 60)'；Max seconds to wait for response (default: 60)
+  - `timeout`（可选）：默认值 60；Max seconds to wait for response (default: 60)
 - 用法：`opencli codex ask [options] -f json`
 
 ### dump
@@ -17,7 +17,7 @@
 ### export
 - 用途：Export the current Codex conversation to a Markdown file
 - 参数：
-  - `output`（可选）：默认值 /tmp/codex-export.md)'；Output file (default: /tmp/codex-export.md)
+  - `output`（可选）：默认值 /tmp/codex-export.md；Output file (default: /tmp/codex-export.md)
 - 用法：`opencli codex export [options] -f json`
 
 ### extract-diff
@@ -49,7 +49,7 @@
 ### screenshot
 - 用途：Capture a snapshot of the current Codex window (DOM + Accessibility tree)
 - 参数：
-  - `output`（可选）：默认值 /tmp/codex-snapshot.txt)'；Output file path (default: /tmp/codex-snapshot.txt)
+  - `output`（可选）：默认值 /tmp/codex-snapshot.txt；Output file path (default: /tmp/codex-snapshot.txt)
 - 用法：`opencli codex screenshot [options] -f json`
 
 ### send

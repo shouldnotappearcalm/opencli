@@ -115,20 +115,65 @@ opencli list  # 可以在任何地方使用了！
 npm install -g @jackwener/opencli@latest
 ```
 
-## 安装 OpenCLI Skill（opencli-platform-router）
+## 安装 OpenCLI Skill（opencli-skill）
 
-如果你希望 Agent 直接使用仓库内的命令文档型 Skill，请使用：
+本仓库内 Skill 路径：
 
 ```bash
-# Skill 目录
-skills/opencli-platform-router/
+skills/opencli-skill/
 ```
 
-推荐接入方式：
+### Codex
 
-1. 读取 `skills/opencli-platform-router/SKILL.md`
-2. 按平台读取 `skills/opencli-platform-router/references/commands/*.md`
-3. 首次执行浏览器命令前先运行 `opencli doctor`
+安装到 Codex 用户技能目录：
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/opencli-skill ~/.codex/skills/opencli-skill
+```
+
+安装后重启 Codex。
+
+### Cursor
+
+可使用旧版 `.cursorrules`，也可使用项目规则（`.cursor/rules/*.mdc`）：
+
+```bash
+mkdir -p .cursor/rules
+cat > .cursor/rules/opencli-skill.mdc <<'EOF'
+# OpenCLI Skill
+
+当用户询问 OpenCLI 命令时：
+1. 读取 `skills/opencli-skill/SKILL.md`
+2. 读取 `skills/opencli-skill/references/commands/<platform>.md`
+3. 优先给出带 `-f json` 的命令示例
+4. 浏览器命令失败时先执行 `opencli doctor`
+EOF
+```
+
+### Claude Code
+
+添加项目记忆，并可选配置 slash command：
+
+```bash
+# 项目记忆
+cat > CLAUDE.md <<'EOF'
+For OpenCLI command requests:
+1. Read `skills/opencli-skill/SKILL.md`
+2. Read `skills/opencli-skill/references/commands/<platform>.md`
+3. Use exact command + required args and prefer `-f json`
+4. Run `opencli doctor` before first browser command
+EOF
+
+# 可选 slash command：/opencli <平台与意图>
+mkdir -p .claude/commands
+cat > .claude/commands/opencli.md <<'EOF'
+Use OpenCLI skill docs for: $ARGUMENTS
+1. Read `skills/opencli-skill/SKILL.md`
+2. Read platform file under `skills/opencli-skill/references/commands/`
+3. Return concrete commands and args only
+EOF
+```
 
 该 Skill 依赖：
 - 已安装 `opencli` 命令

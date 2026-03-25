@@ -19,7 +19,7 @@
 ### summary
 - 用途：Get Wikipedia article summary
 - 参数：
-  - `title`（必填）：Article title (e.g.
+  - `title`（必填）：Article title (e.g. "Alan Turing")
   - `lang`（可选）：默认值 'en'；Language code (e.g. en, zh, ja)
 - 用法：`opencli wikipedia summary [options] -f json`
 

@@ -15,7 +15,7 @@
 ### read
 - 用途：Read recent messages from the active Discord channel
 - 参数：
-  - `count`（可选）：默认值 20)'；Number of messages to read (default: 20)
+  - `count`（可选）：默认值 20；Number of messages to read (default: 20)
 - 用法：`opencli discord-app read [options] -f json`
 
 ### search

@@ -6,7 +6,7 @@
 - 用途：Send a prompt and wait for the AI response (send + wait + read)
 - 参数：
   - `text`（必填）：Prompt to send
-  - `timeout`（可选）：默认值 30)'；Max seconds to wait for response (default: 30)
+  - `timeout`（可选）：默认值 30；Max seconds to wait for response (default: 30)
 - 用法：`opencli chatgpt ask [options] -f json`
 
 ### new

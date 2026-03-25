@@ -27,7 +27,7 @@
 ### screenshot
 - 用途：Capture a screenshot of the Doubao desktop app window
 - 参数：
-  - `output`（可选）：默认值 /tmp/doubao-screenshot.png)'；Output file path (default: /tmp/doubao-screenshot.png)
+  - `output`（可选）：默认值 /tmp/doubao-screenshot.png；Output file path (default: /tmp/doubao-screenshot.png)
 - 用法：`opencli doubao-app screenshot [options] -f json`
 
 ### send

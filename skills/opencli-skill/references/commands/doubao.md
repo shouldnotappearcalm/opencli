@@ -6,7 +6,7 @@
 - 用途：Send a prompt and wait for the Doubao response
 - 参数：
   - `text`（必填）：Prompt to send
-  - `timeout`（可选）：默认值 60)'；Max seconds to wait (default: 60)
+  - `timeout`（可选）：默认值 60；Max seconds to wait (default: 60)
 - 用法：`opencli doubao ask [options] -f json`
 
 ### new

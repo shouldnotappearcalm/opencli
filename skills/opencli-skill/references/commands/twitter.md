@@ -5,7 +5,7 @@
 ### accept
 - 用途：Auto-accept DM requests containing specific keywords
 - 参数：
-  - `query`（必填）：类型 string；Keywords to match (comma-separated for OR, e.g.
+  - `query`（必填）：类型 string；Keywords to match (comma-separated for OR, e.g. "hiring,remote")
   - `max`（可选）：类型 int；默认值 20；Maximum number of requests to accept (default: 20)
 - 用法：`opencli twitter accept [options] -f json`
 
@@ -108,7 +108,7 @@
 ### reply-dm
 - 用途：Send a message to recent DM conversations
 - 参数：
-  - `text`（必填）：类型 string；Message text to send (e.g.
+  - `text`（必填）：类型 string；Message text to send (e.g. "Thanks for reaching out")
   - `max`（可选）：类型 int；默认值 20；Maximum number of conversations to reply to (default: 20)
   - `skip-replied`（可选）：类型 boolean；默认值 true；Skip conversations where you already sent the same text (default: true)
 - 用法：`opencli twitter reply-dm [options] -f json`

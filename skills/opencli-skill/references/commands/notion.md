@@ -5,7 +5,7 @@
 ### export
 - 用途：Export the current Notion page as Markdown
 - 参数：
-  - `output`（可选）：默认值 /tmp/notion-export.md)'；Output file (default: /tmp/notion-export.md)
+  - `output`（可选）：默认值 /tmp/notion-export.md；Output file (default: /tmp/notion-export.md)
 - 用法：`opencli notion export [options] -f json`
 
 ### favorites

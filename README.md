@@ -113,22 +113,67 @@ opencli list  # Now you can use it anywhere!
 npm install -g @jackwener/opencli@latest
 ```
 
-## Install the OpenCLI Skill (opencli-platform-router)
+## Install the OpenCLI Skill (opencli-skill)
 
-If you want agents to consume platform command docs directly from this repo, use:
+Skill location in this repo:
 
 ```bash
-# Skill location in this repo
-skills/opencli-platform-router/
+skills/opencli-skill/
 ```
 
-Recommended setup for agents:
+### Codex
 
-1. Load `skills/opencli-platform-router/SKILL.md`
-2. Load platform docs from `skills/opencli-platform-router/references/commands/*.md`
-3. Run `opencli doctor` before first browser command
+Install to Codex user skills directory:
 
-This skill depends on:
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/opencli-skill ~/.codex/skills/opencli-skill
+```
+
+Then restart Codex.
+
+### Cursor
+
+You can use either legacy `.cursorrules` or project rules (`.cursor/rules/*.mdc`):
+
+```bash
+mkdir -p .cursor/rules
+cat > .cursor/rules/opencli-skill.mdc <<'EOF'
+# OpenCLI Skill
+
+When user requests OpenCLI command usage:
+1. Read `skills/opencli-skill/SKILL.md`
+2. Read `skills/opencli-skill/references/commands/<platform>.md`
+3. Prefer command examples with `-f json`
+4. If browser command fails, run `opencli doctor`
+EOF
+```
+
+### Claude Code
+
+Add project memory and optional slash command:
+
+```bash
+# Project memory
+cat > CLAUDE.md <<'EOF'
+For OpenCLI command requests:
+1. Read `skills/opencli-skill/SKILL.md`
+2. Read `skills/opencli-skill/references/commands/<platform>.md`
+3. Use exact command + required args and prefer `-f json`
+4. Run `opencli doctor` before first browser command
+EOF
+
+# Optional slash command: /opencli <platform and intent>
+mkdir -p .claude/commands
+cat > .claude/commands/opencli.md <<'EOF'
+Use OpenCLI skill docs for: $ARGUMENTS
+1. Read `skills/opencli-skill/SKILL.md`
+2. Read platform file under `skills/opencli-skill/references/commands/`
+3. Return concrete commands and args only
+EOF
+```
+
+Skill prerequisites:
 - installed `opencli` binary
 - manually installed Chrome Browser Bridge extension (`chrome://extensions`)
 

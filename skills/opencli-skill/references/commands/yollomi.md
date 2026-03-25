@@ -5,7 +5,7 @@
 ### background
 - 用途：Generate AI background for a product/object image (5 credits)
 - 参数：
-  - `image`（必填）：Image URL (upload via
+  - `image`（必填）：Image URL (upload via `opencli yollomi upload`)
   - `prompt`（可选）：默认值 ''；Background description (optional)
   - `output`（可选）：默认值 './yollomi-output'；Output directory
   - `no-download`（可选）：类型 boolean；默认值 false；Only show URL
@@ -14,8 +14,8 @@
 ### edit
 - 用途：Edit images with AI text prompts (Qwen image edit)
 - 参数：
-  - `image`（必填）：Input image URL (upload via
-  - `prompt`（必填）：Editing instruction (e.g.
+  - `image`（必填）：Input image URL (upload via `opencli yollomi upload`)
+  - `prompt`（必填）：Editing instruction (e.g. "remove the background")
   - `model`（可选）：默认值 'qwen-image-edit'；Edit model
   - `output`（可选）：默认值 './yollomi-output'；Output directory
   - `no-download`（可选）：类型 boolean；默认值 false；Only show URL
@@ -36,7 +36,7 @@
   - `prompt`（必填）：Text prompt describing the image
   - `model`（可选）：默认值 'z-image-turbo'；Model ID (z-image-turbo, flux-schnell, nano-banana, flux-2-pro, ...)
   - `ratio`（可选）：默认值 '1:1'；Aspect ratio
-  - `image`（可选）：Input image URL for image-to-image (upload via
+  - `image`（可选）：Input image URL for image-to-image (upload via `opencli yollomi upload`)
   - `output`（可选）：默认值 './yollomi-output'；Output directory
   - `no-download`（可选）：类型 boolean；默认值 false；Only show URLs, skip download
 - 用法：`opencli yollomi generate [options] -f json`
@@ -75,7 +75,7 @@
 ### try-on
 - 用途：Virtual try-on — see how clothes look on a person (3 credits)
 - 参数：
-  - `person`（必填）：Person photo URL (upload via
+  - `person`（必填）：Person photo URL (upload via `opencli yollomi upload`)
   - `cloth`（必填）：Clothing image URL
   - `cloth-type`（可选）：默认值 'upper'；Clothing type
   - `output`（可选）：默认值 './yollomi-output'；Output directory
