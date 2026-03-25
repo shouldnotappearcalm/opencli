@@ -1,17 +1,12 @@
 # yollomi
 
-Auto-generated from `src/clis/yollomi` source files.
-
 Total commands: **12**
-
-> 写操作提示：命令名命中高风险动作（如 post/reply/delete/follow/like/block 等）时，执行前必须二次确认。
 
 ## Commands
 
+
 ### background
 - Description: Generate AI background for a product/object image (5 credits)
-- Risk: low
-- Source: `src/clis/yollomi/background.ts`
 - Args:
   - `image` (required) — Image URL (upload via
   - `prompt` (optional) — default=''; Background description (optional)
@@ -21,8 +16,6 @@ Total commands: **12**
 
 ### edit
 - Description: Edit images with AI text prompts (Qwen image edit)
-- Risk: low
-- Source: `src/clis/yollomi/edit.ts`
 - Args:
   - `image` (required) — Input image URL (upload via
   - `prompt` (required) — Editing instruction (e.g.
@@ -33,8 +26,6 @@ Total commands: **12**
 
 ### face-swap
 - Description: Swap faces between two photos (3 credits)
-- Risk: low
-- Source: `src/clis/yollomi/face-swap.ts`
 - Args:
   - `source` (required) — Source face image URL
   - `target` (required) — Target photo URL
@@ -44,8 +35,6 @@ Total commands: **12**
 
 ### generate
 - Description: Generate images with AI (text-to-image or image-to-image)
-- Risk: low
-- Source: `src/clis/yollomi/generate.ts`
 - Args:
   - `prompt` (required) — Text prompt describing the image
   - `model` (optional) — default='z-image-turbo'; Model ID (z-image-turbo, flux-schnell, nano-banana, flux-2-pro, ...)
@@ -57,16 +46,12 @@ Total commands: **12**
 
 ### models
 - Description: List available Yollomi AI models (image, video, tools)
-- Risk: low
-- Source: `src/clis/yollomi/models.ts`
 - Args:
   - `type` (optional) — default='all'; Filter by model type
 - Example: `opencli yollomi models -f json`
 
 ### object-remover
 - Description: Remove unwanted objects from images (3 credits)
-- Risk: low
-- Source: `src/clis/yollomi/object-remover.ts`
 - Args:
   - `image` (required) — Image URL
   - `mask` (required) — Mask image URL (white = area to remove)
@@ -76,8 +61,6 @@ Total commands: **12**
 
 ### remove-bg
 - Description: Remove image background with AI (free)
-- Risk: low
-- Source: `src/clis/yollomi/remove-bg.ts`
 - Args:
   - `image` (required) — Image URL to remove background from
   - `output` (optional) — default='./yollomi-output'; Output directory
@@ -86,8 +69,6 @@ Total commands: **12**
 
 ### restore
 - Description: Restore old or damaged photos with AI (4 credits)
-- Risk: low
-- Source: `src/clis/yollomi/restore.ts`
 - Args:
   - `image` (required) — Image URL to restore
   - `output` (optional) — default='./yollomi-output'; Output directory
@@ -96,8 +77,6 @@ Total commands: **12**
 
 ### try-on
 - Description: Virtual try-on — see how clothes look on a person (3 credits)
-- Risk: low
-- Source: `src/clis/yollomi/try-on.ts`
 - Args:
   - `person` (required) — Person photo URL (upload via
   - `cloth` (required) — Clothing image URL
@@ -108,16 +87,12 @@ Total commands: **12**
 
 ### upload
 - Description: Upload an image or video to Yollomi (returns URL for other commands)
-- Risk: low
-- Source: `src/clis/yollomi/upload.ts`
 - Args:
   - `file` (required) — Local file path to upload
 - Example: `opencli yollomi upload -f json`
 
 ### upscale
 - Description: Upscale image resolution with AI (1 credit)
-- Risk: low
-- Source: `src/clis/yollomi/upscale.ts`
 - Args:
   - `image` (required) — Image URL to upscale
   - `scale` (optional) — default='2'; Upscale factor (2 or 4)
@@ -127,8 +102,6 @@ Total commands: **12**
 
 ### video
 - Description: Generate videos with AI (text-to-video or image-to-video)
-- Risk: low
-- Source: `src/clis/yollomi/video.ts`
 - Args:
   - `prompt` (required) — Text prompt describing the video
   - `model` (optional) — default='kling-2-1'; Model (kling-2-1, openai-sora-2, google-veo-3-1, wan-2-5-t2v, ...)
