@@ -5,8 +5,8 @@
 ### ask
 - Purpose: Send a prompt and wait for the AI response (send + wait + read)
 - Args:
-  - `text`(required): Prompt to send
-  - `timeout`(optional): default: 60; Max seconds to wait for response (default: 60)
+  - `text`(required); Prompt to send
+  - `timeout`(optional; default: 60)'); Max seconds to wait for response (default: 60)
 - Usage: `opencli codex ask [options] -f json`
 
 ### dump
@@ -17,7 +17,7 @@
 ### export
 - Purpose: Export the current Codex conversation to a Markdown file
 - Args:
-  - `output`(optional): default: /tmp/codex-export.md; Output file (default: /tmp/codex-export.md)
+  - `output`(optional; default: /tmp/codex-export.md)'); Output file (default: /tmp/codex-export.md)
 - Usage: `opencli codex export [options] -f json`
 
 ### extract-diff
@@ -33,7 +33,7 @@
 ### model
 - Purpose: Get or switch the currently active AI model in Codex Desktop
 - Args:
-  - `model-name`(optional): The ID of the model to switch to (e.g. gpt-4)
+  - `model-name`(optional); The ID of the model to switch to (e.g. gpt-4)
 - Usage: `opencli codex model [options] -f json`
 
 ### new
@@ -48,14 +48,13 @@
 
 ### screenshot
 - Purpose: Capture a snapshot of the current Codex window (DOM + Accessibility tree)
-- Args:
-  - `output`(optional): default: /tmp/codex-snapshot.txt; Output file path (default: /tmp/codex-snapshot.txt)
+- Args: None
 - Usage: `opencli codex screenshot [options] -f json`
 
 ### send
 - Purpose: Send text/commands to the Codex AI composer
 - Args:
-  - `text`(required): Text, command (e.g. /review), or skill (e.g. $imagegen)
+  - `text`(required); Text, command (e.g. /review), or skill (e.g. $imagegen)
 - Usage: `opencli codex send [options] -f json`
 
 ### status

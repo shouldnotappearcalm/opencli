@@ -4,48 +4,46 @@
 
 ### earnings-date
 - Purpose: Get expected earnings release dates
-- Args:
-  - `symbol`(required): type: str; Stock symbol, e.g. SH600519, SZ000858, 00700
-  - `next`(optional): type: bool; default: false; Return only the nearest upcoming earnings date
-  - `limit`(optional): type: int; default: 10; Number of results, default 10
+- Args: None
 - Usage: `opencli xueqiu earnings-date [options] -f json`
 
 ### feed
 - Purpose: Get Xueqiu home feed (followed users)
-- Args:
-  - `page`(optional): type: int; default: 1; Page number, default 1
-  - `limit`(optional): type: int; default: 20; Items per page, default 20
+- Args: None
 - Usage: `opencli xueqiu feed [options] -f json`
+
+### fund-holdings
+- Purpose: 获取蛋卷基金持仓明细（可用 --account 按子账户过滤）
+- Args:
+  - `account`(optional; type: str; default: ''); 按子账户名称或 ID 过滤
+- Usage: `opencli xueqiu fund-holdings [options] -f json`
+
+### fund-snapshot
+- Purpose: 获取蛋卷基金快照（总资产、子账户、持仓，推荐 -f json 输出）
+- Args: None
+- Usage: `opencli xueqiu fund-snapshot [options] -f json`
 
 ### hot
 - Purpose: Get Xueqiu hot feed
-- Args:
-  - `limit`(optional): type: int; default: 20; Number of results, default 20, max 50
+- Args: None
 - Usage: `opencli xueqiu hot [options] -f json`
 
 ### hot-stock
 - Purpose: Get Xueqiu hot stocks ranking
-- Args:
-  - `limit`(optional): type: int; default: 20; Number of results, default 20, max 50
-  - `type`(optional): type: str; default: "10"; Ranking type: 10=popularity (default), 12=watchlist
+- Args: None
 - Usage: `opencli xueqiu hot-stock [options] -f json`
 
 ### search
 - Purpose: Search Xueqiu stocks (ticker or name)
-- Args:
-  - `query`(required): type: str; Search keyword, e.g. Moutai, AAPL, Tencent
-  - `limit`(optional): type: int; default: 10; Number of results, default 10
+- Args: None
 - Usage: `opencli xueqiu search [options] -f json`
 
 ### stock
 - Purpose: Get Xueqiu real-time quote
-- Args:
-  - `symbol`(required): type: str; Stock symbol, e.g. SH600519, SZ000858, AAPL, 00700
+- Args: None
 - Usage: `opencli xueqiu stock [options] -f json`
 
 ### watchlist
 - Purpose: Get Xueqiu watchlist
-- Args:
-  - `category`(optional): type: str # using str to prevent parsing issues like 01; default: "1"; Category: 1=watchlist (default), 2=positions, 3=following
-  - `limit`(optional): type: int; default: 100; default 100
+- Args: None
 - Usage: `opencli xueqiu watchlist [options] -f json`

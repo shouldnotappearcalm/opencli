@@ -173,8 +173,10 @@ EOF
 Add project memory and optional slash command:
 
 ```bash
-# Project memory
-cat > CLAUDE.md <<'EOF'
+# Project memory (append; do not overwrite existing CLAUDE.md)
+cat >> CLAUDE.md <<'EOF'
+
+## OpenCLI skill notes
 For OpenCLI command requests:
 1. Read `skills/opencli-skill/SKILL.md`
 2. Read `skills/opencli-skill/references/commands/<platform>.md`

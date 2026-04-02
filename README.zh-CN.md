@@ -155,8 +155,10 @@ EOF
 添加项目记忆，并可选配置 slash command：
 
 ```bash
-# 项目记忆
-cat > CLAUDE.md <<'EOF'
+# 项目记忆（追加写入，不覆盖已有 CLAUDE.md）
+cat >> CLAUDE.md <<'EOF'
+
+## OpenCLI skill notes
 For OpenCLI command requests:
 1. Read `skills/opencli-skill/SKILL.md`
 2. Read `skills/opencli-skill/references/commands/<platform>.md`

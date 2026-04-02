@@ -5,20 +5,20 @@
 ### feed
 - Purpose: Medium trending feed
 - Args:
-  - `topic`(optional): default: ''; Topic tag (e.g. technology, programming, ai)
-  - `limit`(optional): type: int; default: 20; Number of articles to return
+  - `topic`(optional; default: ''); 话题标签（如 technology, programming, ai）
+  - `limit`(optional; type: int; default: 20); 返回的文章数量
 - Usage: `opencli medium feed [options] -f json`
 
 ### search
 - Purpose: Search Medium articles
 - Args:
-  - `keyword`(required): Search keyword
-  - `limit`(optional): type: int; default: 20; Number of articles to return
+  - `keyword`(required); 搜索关键词
+  - `limit`(optional; type: int; default: 20); 返回的文章数量
 - Usage: `opencli medium search [options] -f json`
 
 ### user
 - Purpose: List articles from a Medium user
 - Args:
-  - `username`(required): Medium username (e.g. @username or username)
-  - `limit`(optional): type: int; default: 20; Number of articles to return
+  - `username`(required); Medium 用户名（如 @username 或 username）
+  - `limit`(optional; type: int; default: 20); 返回的文章数量
 - Usage: `opencli medium user [options] -f json`

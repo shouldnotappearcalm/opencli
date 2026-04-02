@@ -4,40 +4,56 @@
 
 ### categories
 - Purpose: linux.do category list
-- Args:
-  - `limit`(optional): type: int; default: 20; Number of categories
+- Args: None
 - Usage: `opencli linux-do categories [options] -f json`
 
 ### category
 - Purpose: linux.do topics in a category
 - Args:
-  - `slug`(required): type: str; Category slug (use 'categories' command to find)
-  - `id`(required): type: int; Category ID (use 'categories' command to find)
-  - `limit`(optional): type: int; default: 20; Number of topics
+  - `slug`(required; type: str); Category slug (legacy compatibility argument)
+  - `id`(required; type: int); Category ID
+  - `limit`(optional; type: int; default: 20); Number of items (per_page)
 - Usage: `opencli linux-do category [options] -f json`
+
+### feed
+- Purpose: linux.do 话题列表（需登录；支持全站、标签、分类）
+- Args: None
+- Usage: `opencli linux-do feed [options] -f json`
 
 ### hot
 - Purpose: linux.do hot topics
 - Args:
-  - `limit`(optional): type: int; default: 20; Number of topics
-  - `period`(optional): type: str; default: weekly; Time period
+  - `limit`(optional; type: int; default: 20); Number of items (per_page)
+  - `period`(optional; type: str; default: 'weekly'); Time period
 - Usage: `opencli linux-do hot [options] -f json`
 
 ### latest
 - Purpose: linux.do latest topics
 - Args:
-  - `limit`(optional): type: int; default: 20; Number of topics
+  - `limit`(optional; type: int; default: 20); Number of items (per_page)
 - Usage: `opencli linux-do latest [options] -f json`
 
 ### search
 - Purpose: Search linux.do
-- Args:
-  - `query`(required): type: str; Search query
-  - `limit`(optional): type: int; default: 20; Number of results
+- Args: None
 - Usage: `opencli linux-do search [options] -f json`
+
+### tags
+- Purpose: linux.do 标签列表
+- Args: None
+- Usage: `opencli linux-do tags [options] -f json`
 
 ### topic
 - Purpose: linux.do topic detail with replies (homepage scope)
-- Args:
-  - `id`(required): type: int; Topic ID
+- Args: None
 - Usage: `opencli linux-do topic [options] -f json`
+
+### user-posts
+- Purpose: linux.do 用户的帖子
+- Args: None
+- Usage: `opencli linux-do user-posts [options] -f json`
+
+### user-topics
+- Purpose: linux.do 用户创建的话题
+- Args: None
+- Usage: `opencli linux-do user-topics [options] -f json`

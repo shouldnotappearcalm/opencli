@@ -5,8 +5,8 @@
 ### ask
 - Purpose: Send a message to Doubao desktop app and wait for the AI response
 - Args:
-  - `text`(required): Prompt to send
-  - `timeout`(optional): type: int; default: 30; Max seconds to wait for response
+  - `text`(required); Prompt to send
+  - `timeout`(optional; type: int; default: 30); Max seconds to wait for response
 - Usage: `opencli doubao-app ask [options] -f json`
 
 ### dump
@@ -27,13 +27,13 @@
 ### screenshot
 - Purpose: Capture a screenshot of the Doubao desktop app window
 - Args:
-  - `output`(optional): default: /tmp/doubao-screenshot.png; Output file path (default: /tmp/doubao-screenshot.png)
+  - `output`(optional; default: /tmp/doubao-screenshot.png)'); Output file path (default: /tmp/doubao-screenshot.png)
 - Usage: `opencli doubao-app screenshot [options] -f json`
 
 ### send
 - Purpose: Send a message to Doubao desktop app
 - Args:
-  - `text`(required): Message text to send
+  - `text`(required); Message text to send
 - Usage: `opencli doubao-app send [options] -f json`
 
 ### status

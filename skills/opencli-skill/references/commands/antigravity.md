@@ -15,7 +15,7 @@
 ### model
 - Purpose: Switch the active LLM model in Antigravity
 - Args:
-  - `name`(required): Target model name (e.g. claude, gemini, o1)
+  - `name`(required); Target model name (e.g. claude, gemini, o1)
 - Usage: `opencli antigravity model [options] -f json`
 
 ### new
@@ -26,14 +26,19 @@
 ### read
 - Purpose: Read the latest chat messages from Antigravity AI
 - Args:
-  - `last`(optional): Number of recent messages to read (not fully implemented due to generic structure, currently returns full history text or latest chunk)
+  - `last`(optional); Number of recent messages to read (not fully implemented due to generic structure, currently returns full history text or latest chunk)
 - Usage: `opencli antigravity read [options] -f json`
 
 ### send
 - Purpose: Send a message to Antigravity AI via the internal Lexical editor
 - Args:
-  - `message`(required): The message text to send
+  - `message`(required); The message text to send
 - Usage: `opencli antigravity send [options] -f json`
+
+### serve
+- Purpose: antigravity serve operation
+- Args: None
+- Usage: `opencli antigravity serve [options] -f json`
 
 ### status
 - Purpose: Check Antigravity CDP connection and get current page state

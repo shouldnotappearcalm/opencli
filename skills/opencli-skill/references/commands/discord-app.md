@@ -15,19 +15,19 @@
 ### read
 - Purpose: Read recent messages from the active Discord channel
 - Args:
-  - `count`(optional): default: 20; Number of messages to read (default: 20)
+  - `count`(optional; default: 20)'); Number of messages to read (default: 20)
 - Usage: `opencli discord-app read [options] -f json`
 
 ### search
 - Purpose: Search messages in the current Discord server/channel (Cmd+F)
 - Args:
-  - `query`(required): Search query
+  - `query`(required); Search query
 - Usage: `opencli discord-app search [options] -f json`
 
 ### send
 - Purpose: Send a message in the active Discord channel
 - Args:
-  - `text`(required): Message to send
+  - `text`(required); Message to send
 - Usage: `opencli discord-app send [options] -f json`
 
 ### servers
